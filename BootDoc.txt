@@ -1,0 +1,20 @@
+Legacy MBR:
+	Machine starts
+	MBR is loaded
+	MBR loads 2nd stage bootloader from partion in GPT partion table marked with special ID
+	
+	
+2nd stage partion:	
+	MUST BE first partion AND Start on sector: 2048 to be changes
+	
+	UUID: F1234567-89AB-FEDC-0000-BA987654321F (Mos blob partion)
+	For GPT, partion MUST have flags bit 1, 2, and 48(Mos Blob Partion: Bootloader) set.
+	MBR ID: 0xFA
+	
+	
+	
+2nd stage format:
+	bytes 0-7: jump code
+	bytes 8-15: 
+		8-11: 'BOOT'
+		12-15: Reasurved.
