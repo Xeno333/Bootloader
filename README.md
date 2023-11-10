@@ -1,2 +1,2 @@
 # Bootloader
-Boots my OSs
+Boots MOS
