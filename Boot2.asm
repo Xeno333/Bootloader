@@ -123,22 +123,49 @@ start:
     add edi, 0x1000
     mov dword[edi], Page_table+0x2003
     add edi, 0x1000
+    mov ecx, 0x1000/8
+    mov eax, Page_table+0x3003
+    pdt:
+        mov dword[edi], eax
+        add eax, 0x1000
+        add edi, 8
+        dec ecx
+        jne pdt
 
-    mov ebx, 00000000000000000000000010000011b
+    mov ebx, 00000000000000000000000000000011b
     mov eax, 00000000000000000000000000000000b
-    mov ecx, 8;8 pages, 16 MiB Kernel is loaded to 0x200000
+    mov ecx, 512*3;3 pages 6 MiB Kernel is loaded to 0x200000
 
 
 page_table_loop:
     mov [edi], ebx
     mov [edi+4], eax
-    add ebx, 0x200000
+    add ebx, 0x1000
     add edi, 8
     dec ecx
     jnz page_table_loop
     mov eax, 0
 
 
+    ;mov edi, Page_table
+    ;mov dword[edi+(0x1f4*0x8)], Page_table+0x4003
+    ;add edi, 0x1000
+
+    ;mov dword[edi+], Page_table+0x5003
+    ;add edi, 0x1000
+
+    ;mov ebx, 00000000000000000000000010000011b+0x200000
+    ;mov eax, 00000000000000000000000000000000b
+    ;mov ecx, 7;7 pages, 14 MiB Kernel is loaded to 0x200000
+
+
+;page_table_loop2:
+    ;mov [edi], ebx
+    ;mov [edi+4], eax
+    ;add ebx, 0x200000
+    ;add edi, 8
+    ;dec ecx
+    ;jnz page_table_loop2
 
     mov eax, 10100000b
     mov cr4, eax
